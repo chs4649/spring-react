@@ -1,0 +1,723 @@
+========================================================================
+
+signIn(ログイン)
+
+- request
+{
+    *email: String
+    *password: String
+}
+
+- response
+
+成功
+
+Http Status - 200 (OK)
+{
+    code: "SU", 
+    message: "Success.",
+    token: "jwt...",
+    expireDate: 123456789
+}
+
+失敗
+
+- 必須情報未入力
+
+- ログイン失敗
+Http Status - 401 (Unauthorized)
+{
+    code: "SF",
+    message: "Sign In Failed."
+}
+
+- データベースエラー
+Http Status - 500 (Internal Sever Error)
+{
+    code: "DE",
+    message: "Database Error."
+}
+
+========================================================================
+
+signUp(アカウント登録)
+
+- request
+{
+    email: String,
+    password: String,
+    nickname: String,
+    telNumber: String,
+    address: String,
+    addressDetail: String
+}
+
+- response
+
+成功
+
+Http Status - 200 (OK)
+{
+    code: "SU", 
+    message: "Success."
+}
+
+失敗
+
+- 必須情報未入力 / メールアドレス不一致 / パスワード8文字未満 / 電話番号不一致
+
+- メールアドレスの重複
+Http Status - 400 (Bad request)
+{
+    code: "EE",
+    message: "Existed Email."
+}
+
+- データベースエラー
+Http Status - 500 (Internal Sever Error)
+{
+    code: "DE",
+    message: "Database Error."
+}
+
+========================================================================
+
+weeklyTop3(週刊上位3位掲示物)
+
+- response
+
+成功
+
+Http Status - 200 (OK)
+{
+    code: "SU", 
+    message: "Success.",
+    top3List: boardListItem[]
+}
+
+boardListItem
+{
+    boardNumber: int,
+    title: String,
+    content: String,
+    boardTitleImage: String,
+    favoriteCount: int,
+    commentCount: int,
+    viewCount: int,
+    writeDatetime: String,
+    writerNickname: String,
+    writerProfileImage: String
+}
+
+失敗
+
+- データベースエラー
+Http Status - 500 (Internal Sever Error)
+{
+    code: "DE",
+    message: "Database Error."
+}
+
+========================================================================
+
+currentList(最新掲示物)
+
+- response
+
+成功
+
+Http Status - 200 (OK)
+{
+    code: "SU", 
+    message: "Success.",
+    currentList: boardListItem[]
+}
+
+boardListItem
+{
+    boardNumber: int,
+    title: String,
+    content: String,
+    boardTitleImage: String,
+    favoriteCount: int,
+    commentCount: int,
+    viewCount: int,
+    writeDatetime: String,
+    writerNickname: String,
+    writerProfileImage: String
+}
+
+失敗
+
+- データベースエラー
+Http Status - 500 (Internal Sever Error)
+{
+    code: "DE",
+    message: "Database Error."
+}
+
+========================================================================
+
+popularWordList(人気キーワードリスト)
+
+- response
+
+成功
+
+Http Status - 200 (OK)
+{
+    code: "SU", 
+    message: "Success.",
+    popularWordList: String[]
+}
+
+失敗
+
+- データベースエラー
+Http Status - 500 (Internal Sever Error)
+{
+    code: "DE",
+    message: "Database Error."
+}
+
+========================================================================
+
+searchList(検索掲示物リスト)
+
+- response
+
+成功
+
+Http Status - 200 (OK)
+{
+    code: "SU", 
+    message: "Success.",
+    searchList: boardListItem[]
+}
+
+boardListItem
+{
+    boardNumber: int,
+    title: String,
+    content: String,
+    boardTitleImage: String,
+    favoriteCount: int,
+    commentCount: int,
+    viewCount: int,
+    writeDatetime: String,
+    writerNickname: String,
+    writerProfileImage: String
+}
+
+失敗
+
+- データベースエラー
+Http Status - 500 (Internal Sever Error)
+{
+    code: "DE",
+    message: "Database Error."
+}
+
+========================================================================
+
+relativeWordList(関連キーワードリスト)
+
+- response
+
+成功
+
+Http Status - 200 (OK)
+{
+    code: "SU", 
+    message: "Success.",
+    relativeWordList: String[]
+}
+
+失敗
+
+- データベースエラー
+Http Status - 500 (Internal Sever Error)
+{
+    code: "DE",
+    message: "Database Error."
+}
+
+
+========================================================================
+
+boardDetail(掲示物詳細)
+
+- response
+
+成功
+
+Http Status - 200 (OK)
+{
+    code: "SU", 
+    message: "Success.",
+    boardNumber: int,
+    title: String,
+    content: String,
+    boardImage: String[],
+    writeDatetime: String,
+    writeEmail: String,
+    writerNickname: String,
+    writerProfileImage: String
+}
+
+失敗
+
+Http Status - 400 (Bad request)
+{
+    code: "NB",
+    message: "No Existed Board Number."
+}
+
+- データベースエラー
+Http Status - 500 (Internal Sever Error)
+{
+    code: "DE",
+    message: "Database Error."
+}
+
+========================================================================
+
+favoriteList(いいねリスト)
+
+- response
+
+成功
+
+Http Status - 200 (OK)
+{
+    code: "SU", 
+    message: "Success.",
+    favoriteList: FavoriteListItem[]
+}
+
+FavoriteListItem {
+    email: String,
+    nickname: String,
+    writerProfileImage: String
+}
+
+失敗
+
+- データベースエラー
+Http Status - 500 (Internal Sever Error)
+{
+    code: "DE",
+    message: "Database Error."
+}
+
+========================================================================
+
+putFavorite(いいね機能)
+
+- request
+
+{
+    boardNumber: int
+}
+
+- response
+
+成功
+
+Http Status - 200 (OK)
+{
+    code: "SU", 
+    message: "Success."
+}
+
+失敗
+
+- データベースエラー
+Http Status - 500 (Internal Sever Error)
+{
+    code: "DE",
+    message: "Database Error."
+}
+
+========================================================================
+
+commentList(コメントリスト)
+
+- response
+
+成功
+
+Http Status - 200 (OK)
+{
+    code: "SU", 
+    message: "Success.",
+    commentList: commentListItem[]
+}
+
+commentListItem {
+    email: String,
+    nickname: String,
+    writeDatetime: String,
+    content: String
+}
+
+失敗
+
+- データベースエラー
+Http Status - 500 (Internal Sever Error)
+{
+    code: "DE",
+    message: "Database Error."
+}
+
+========================================================================
+
+postComment(コメント書き込み)
+
+- request
+
+{
+    content: String
+}
+
+- response
+
+成功
+
+Http Status - 200 (OK)
+{
+    code: "SU", 
+    message: "Success."
+}
+
+失敗
+
+- 存在しない掲示物
+Http Status - 400 (Bad Request)
+{
+    code: "NB",
+    message: "No Existed Board."
+}
+
+- 存在しないユーザー
+Http Status - 400 (Bad Request)
+{
+    code: "NU",
+    message: "No Existed User."
+}
+
+- 権限なし
+Http Status - 403 (Forbidden)
+{
+    code: "NP",
+    message: "No Permission."
+}
+
+- データベースエラー
+Http Status - 500 (Internal Sever Error)
+{
+    code: "DE",
+    message: "Database Error."
+}
+
+========================================================================
+
+boardDelete(掲示物削除)
+
+- response
+
+成功
+
+Http Status - 200 (OK)
+{
+    code: "SU", 
+    message: "Success."
+}
+
+失敗
+
+- 存在しない掲示物
+Http Status - 400 (Bad Request)
+{
+    code: "NB",
+    message: "No Existed Board."
+}
+
+- 存在しないユーザー
+Http Status - 400 (Bad Request)
+{
+    code: "NU",
+    message: "No Existed User."
+}
+
+- 権限なし
+Http Status - 403 (Forbidden)
+{
+    code: "NP",
+    message: "No Permission."
+}
+
+- データベースエラー
+Http Status - 500 (Internal Sever Error)
+{
+    code: "DE",
+    message: "Database Error."
+}
+
+
+========================================================================
+
+boardWrite(掲示物書き込み)
+
+- request
+
+{
+   *title: String,
+   *content: String,
+    boardImageList: String[],
+}
+
+- response
+
+成功
+
+Http Status - 200 (OK)
+{
+    code: "SU", 
+    message: "Success."
+}
+
+失敗
+
+- 存在しない掲示物
+Http Status - 400 (Bad Request)
+{
+    code: "NB",
+    message: "No Existed Board."
+}
+
+- 存在しないユーザー
+Http Status - 400 (Bad Request)
+{
+    code: "NU",
+    message: "No Existed User."
+}
+
+- 権限なし
+Http Status - 403 (Forbidden)
+{
+    code: "NP",
+    message: "No Permission."
+}
+
+- データベースエラー
+Http Status - 500 (Internal Sever Error)
+{
+    code: "DE",
+    message: "Database Error."
+}
+
+========================================================================
+
+boardUpdate(掲示物修正)
+
+- request
+
+{
+    *title: String,
+    *content: String,
+    boardImageList: String[],
+}
+
+- response
+
+成功
+
+Http Status - 200 (OK)
+{
+    code: "SU", 
+    message: "Success."
+}
+
+失敗
+
+- 存在しない掲示物
+Http Status - 400 (Bad Request)
+{
+    code: "NB",
+    message: "No Existed Board."
+}
+
+- 存在しないユーザー
+Http Status - 400 (Bad Request)
+{
+    code: "NU",
+    message: "No Existed User."
+}
+
+- 権限なし
+Http Status - 403 (Forbidden)
+{
+    code: "NP",
+    message: "No Permission."
+}
+
+- データベースエラー
+Http Status - 500 (Internal Sever Error)
+{
+    code: "DE",
+    message: "Database Error."
+}
+
+========================================================================
+
+getUser(ユーザー情報)
+
+- response
+
+成功
+
+Http Status - 200 (OK)
+{
+    code: "SU", 
+    message: "Success.",
+    email: String,
+    nickname: String,
+    profileImage: String
+}
+
+失敗
+
+- 存在しないユーザー
+Http Status - 400 (Bad Request)
+{
+    code: "NU",
+    message: "No Existed User."
+}
+
+- データベースエラー
+Http Status - 500 (Internal Sever Error)
+{
+    code: "DE",
+    message: "Database Error."
+}
+
+========================================================================
+
+userBoardList(ユーザー掲示物リスト)
+
+- response
+
+成功
+
+Http Status - 200 (OK)
+{
+    code: "SU", 
+    message: "Success.",
+    BoardList: boardListItem[]
+}
+
+boardListItem
+{
+    boardNumber: int,
+    title: String,
+    content: String,
+    boardTitleImage: String,
+    favoriteCount: int,
+    commentCount: int,
+    viewCount: int,
+    writeDatetime: String,
+    writerNickname: String,
+    writerProfileImage: String
+}
+
+失敗
+
+- データベースエラー
+Http Status - 500 (Internal Sever Error)
+{
+    code: "DE",
+    message: "Database Error."
+}
+
+========================================================================
+
+patchNickname (ニックネーム修正)
+
+- request
+
+{
+    *nickname: String
+}
+
+- response
+
+成功
+
+Http Status - 200 (OK)
+{
+    code: "SU", 
+    message: "Success."
+}
+
+失敗
+
+- 存在しないユーザー
+Http Status - 400 (Bad Request)
+{
+    code: "NU",
+    message: "No Existed User."
+}
+
+- データベースエラー
+Http Status - 500 (Internal Sever Error)
+{
+    code: "DE",
+    message: "Database Error."
+}
+
+========================================================================
+
+patchProfileImage (プロフィールイメージ修正)
+
+- request
+
+{
+    profileImage: String
+}
+
+- response
+
+成功
+
+Http Status - 200 (OK)
+{
+    code: "SU", 
+    message: "Success."
+}
+
+失敗
+
+- 存在しないユーザー
+Http Status - 400 (Bad Request)
+{
+    code: "NU",
+    message: "No Existed User."
+}
+
+- データベースエラー
+Http Status - 500 (Internal Sever Error)
+{
+    code: "DE",
+    message: "Database Error."
+}
+
+========================================================================
+
+fileUpload(ファイルアップロード)
+
+========================================================================
+
+getFile(ファイルロード)
+
+========================================================================
